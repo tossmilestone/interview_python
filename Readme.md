@@ -1267,7 +1267,36 @@ def node(l1, l2):
             l1 = l1.next
             l2 = l2.next
 ```
+一个更好的算法，有a, b两个链表，假设a链表比b链表长k，分别定义p, q指向a, b的头部。p, q同时向前移动，直至q=NULL，此时p与q的距离为k。令s=head(a)，与p同时移动，直至p=NULL。此时令t=head(b)，与s同时移动，当t=s时即为交叉的节点。时间复杂度为O(m+n)。
+```python
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
+
+def overlap_node(l1, l2):
+    p = l1
+    q = l2
+    while p.next and q.next:
+        p = p.next
+        q = q.next
+    if p.next:
+        l = l1
+        s = l2
+    else:
+        l = l2
+        s = l1
+        p = q
+    while l != s:
+        if p.next:
+            l = l.next
+            p = p.next
+        else:
+            l = l.next
+            s = s.next
+    return l
+```
 ## 10 二分查找
 
 ```python
